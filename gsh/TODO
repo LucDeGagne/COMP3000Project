@@ -1,0 +1,11 @@
+
+List of things to do:
+
+. Job control, IPC, I/O redirect and co-processes.
+. C-like scripting language based on tcc -run.
+. Switch to dietline
+. Since we should have functions, there's no need for aliases at all.
+. Handle hypen character before the program name (login shell).
+. Startup file.
+. Allow a meta-directory for the cd bultin command which allows to go up as
+  many directory as the number of dots specified.
