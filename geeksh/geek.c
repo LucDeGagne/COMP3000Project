@@ -1,5 +1,5 @@
 // C Program to design a shell in Linux
-// compile with command: gcc geek.c -o geek -lreadline^C
+// compile with command: gcc geek.c -o geek -lreadline
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -23,28 +23,12 @@
 // Clearing the shell using escape sequences
 #define clear() printf("\033[H\033[J")
 
-// Greeting shell during startup
-void init_shell()
-{
-    clear();
-    printf(ANSI_COLOR_RED "\n******************"
-        "************************" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_RED " \n\n\n\t****MY SHELL****" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_RED " \n\n\t-USE AT YOUR OWN RISK-" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_RED " \n\n\n\n*******************""***********************" ANSI_COLOR_RESET);
-    char* username = getenv("USER");
-    printf( ANSI_COLOR_GREEN "\n\n\nUSER is: @%s" ANSI_COLOR_RESET, username);
-    printf("\n");
-    sleep(1);
-    clear();
-}
-
 // Function to take input
 int takeInput(char* str)
 {
     char* buf;
 
-    buf = readline("\n>>> ");
+    buf = readline("\n> ");
     if (strlen(buf) != 0) {
         add_history(buf);
         strcpy(str, buf);
@@ -158,7 +142,7 @@ void openHelp()
 // Function to execute builtin commands
 int ownCmdHandler(char** parsed)
 {
-    int NoOfOwnCmds = 4, i, switchOwnArg = 0;
+    int NoOfOwnCmds = 32, i, switchOwnArg = 0;
     char* ListOfOwnCmds[NoOfOwnCmds];
     char* username;
 
@@ -166,6 +150,41 @@ int ownCmdHandler(char** parsed)
     ListOfOwnCmds[1] = "cd";
     ListOfOwnCmds[2] = "help";
     ListOfOwnCmds[3] = "hello";
+    //
+    ListOfOwnCmds[4] = "commandMisSpell";
+    ListOfOwnCmds[5] = "commandMisSpell";
+    ListOfOwnCmds[6] = "commandMisSpell";
+    ListOfOwnCmds[7] = "commandMisSpell";
+    //
+    ListOfOwnCmds[8] = "commandMisSpell";
+    ListOfOwnCmds[9] = "commandMisSpell";
+    ListOfOwnCmds[10] = "commandMisSpell";
+    ListOfOwnCmds[11] = "commandMisSpell";
+    //
+    ListOfOwnCmds[12] = "commandMisSpell";
+    ListOfOwnCmds[13] = "commandMisSpell";
+    ListOfOwnCmds[14] = "commandMisSpell";
+    ListOfOwnCmds[15] = "commandMisSpell";
+    //
+    ListOfOwnCmds[16] = "commandMisSpell";
+    ListOfOwnCmds[17] = "commandMisSpell";
+    ListOfOwnCmds[18] = "commandMisSpell";
+    ListOfOwnCmds[19] = "commandMisSpell";
+    //
+    ListOfOwnCmds[20] = "commandMisSpell";
+    ListOfOwnCmds[21] = "commandMisSpell";
+    ListOfOwnCmds[22] = "commandMisSpell";
+    ListOfOwnCmds[23] = "commandMisSpell";
+    //
+    ListOfOwnCmds[24] = "commandMisSpell";
+    ListOfOwnCmds[25] = "commandMisSpell";
+    ListOfOwnCmds[26] = "commandMisSpell";
+    ListOfOwnCmds[27] = "commandMisSpell";
+    //
+    ListOfOwnCmds[28] = "commandMisSpell";
+    ListOfOwnCmds[29] = "commandMisSpell";
+    ListOfOwnCmds[30] = "commandMisSpell";
+    ListOfOwnCmds[31] = "commandMisSpell";
 
     for (i = 0; i < NoOfOwnCmds; i++) {
         if (strcmp(parsed[0], ListOfOwnCmds[i]) == 0) {
@@ -191,6 +210,101 @@ int ownCmdHandler(char** parsed)
             "\nUse help to know more..\n",
             username);
         return 1;
+      //
+      case 5:
+          printf("PATH : %s\n", getenv("PATH"));
+          printf("HOME : %s\n", getenv("HOME"));
+          printf("ROOT : %s\n", getenv("ROOT"));
+          printf("USER : %s\n", getenv("USER"));
+          return 1;
+
+      case 6:
+          return 1;
+
+      case 7:
+          return 1;
+
+      case 8:
+          return 1;
+
+      //
+      case 9:
+          return 1;
+
+      case 10:
+          return 1;
+
+      case 11:
+          return 1;
+
+      case 12:
+          return 1;
+
+      //
+      case 13:
+          return 1;
+
+      case 14:
+          return 1;
+
+      case 15:
+          return 1;
+
+      case 16:
+          return 1;
+
+      //
+      case 17:
+          return 1;
+
+      case 18:
+          return 1;
+
+      case 19:
+          return 1;
+
+      case 20:
+          return 1;
+
+      //
+      case 21:
+          return 1;
+
+      case 22:
+          return 1;
+
+      case 23:
+          return 1;
+
+      case 24:
+          return 1;
+
+      //
+      case 25:
+          return 1;
+
+      case 26:
+          return 1;
+
+      case 27:
+          return 1;
+
+      case 28:
+          return 1;
+
+      //
+      case 29:
+          return 1;
+
+      case 30:
+          return 1;
+
+      case 31:
+          return 1;
+
+      case 32:
+          return 1;
+
     default:
         break;
     }
@@ -258,7 +372,6 @@ int main()
     char inputString[MAXCOM], *parsedArgs[MAXLIST];
     char* parsedArgsPiped[MAXLIST];
     int execFlag = 0;
-    init_shell();
 
     while (1) {
         // print shell line
