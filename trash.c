@@ -1,4 +1,11 @@
 /**
+ *  _                 _
+ * | |               | |
+ * | |_ _ __ __ _ ___| |__   Tutorial-Run Assisted SHell
+ * | __| '__/ _` / __| '_ \     Final Project COMP3000
+ * | |_| | | (_| \__ \ | | |        By Luc and Dave
+ *  \__|_|  \__,_|___/_| |_|
+ *
  * COMP3000 Operating Systems w/ Dr. M Barbeau
  * Final Project: Tutrial-Run Assisted SHell
  *
@@ -156,7 +163,7 @@ void openHelp()
 // Function to execute builtin commands
 int ownCmdHandler(char** parsed)
 {
-    int NoOfOwnCmds = 32, i, switchOwnArg = 0;
+    int NoOfOwnCmds = 33, i, switchOwnArg = 0;
     char* ListOfOwnCmds[NoOfOwnCmds];
     char* username;
 
@@ -199,6 +206,8 @@ int ownCmdHandler(char** parsed)
     ListOfOwnCmds[29] = "cpp";
     ListOfOwnCmds[30] = "c";
     ListOfOwnCmds[31] = "p";
+    //customs
+    ListOfOwnCmds[32] = "trash";
 
     for (i = 0; i < NoOfOwnCmds; i++) {
         if (strcmp(parsed[0], ListOfOwnCmds[i]) == 0) {
@@ -280,7 +289,13 @@ int ownCmdHandler(char** parsed)
       case 32:
           printf(YELLOW"%s did you mean to type 'cp'?\n"RESET, getenv("USER"));
           return 1;
-
+      case 33:
+          printf(GREEN"            _                 _      \n"RESET);
+          printf(GREEN"           | |               | |     \n"RESET);
+          printf(GREEN"           | |_ _ __ __ _ ___| |__   Tutorial-Run Assisted SHell\n"RESET);
+          printf(GREEN"           | __| '__/ _` / __| '_ \\     Final Project COMP3000\n"RESET);
+          printf(GREEN"           | |_| | | (_| \\__ \\ | | |        By Luc and Dave\n"RESET);
+          printf(GREEN"           \\___|_|  \\__,_|___/_| |_| \n"RESET);
     default:
         break;
     }
