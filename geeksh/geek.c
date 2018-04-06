@@ -150,16 +150,16 @@ int ownCmdHandler(char** parsed)
     ListOfOwnCmds[1] = "cd";
     ListOfOwnCmds[2] = "help";
     ListOfOwnCmds[3] = "hello";
-    //
-    ListOfOwnCmds[4] = "commandMisSpell";
-    ListOfOwnCmds[5] = "commandMisSpell";
-    ListOfOwnCmds[6] = "commandMisSpell";
-    ListOfOwnCmds[7] = "commandMisSpell";
-    //
-    ListOfOwnCmds[8] = "commandMisSpell";
-    ListOfOwnCmds[9] = "commandMisSpell";
-    ListOfOwnCmds[10] = "commandMisSpell";
-    ListOfOwnCmds[11] = "commandMisSpell";
+    //man
+    ListOfOwnCmds[4] = "nan";
+    ListOfOwnCmds[5] = "mman";
+    ListOfOwnCmds[6] = "mam";
+    ListOfOwnCmds[7] = "manual";
+    //ls
+    ListOfOwnCmds[8] = "lss";
+    ListOfOwnCmds[9] = "sl";
+    ListOfOwnCmds[10] = "l";
+    ListOfOwnCmds[11] = "l";
     //
     ListOfOwnCmds[12] = "commandMisSpell";
     ListOfOwnCmds[13] = "commandMisSpell";
@@ -210,37 +210,36 @@ int ownCmdHandler(char** parsed)
             "\nUse help to know more..\n",
             username);
         return 1;
-      //
+
+      //man
       case 5:
-          printf("PATH : %s\n", getenv("PATH"));
-          printf("HOME : %s\n", getenv("HOME"));
-          printf("ROOT : %s\n", getenv("ROOT"));
-          printf("USER : %s\n", getenv("USER"));
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'man'?\n" ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 6:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'man'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 7:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'man'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 8:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'man'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
 
-      //
+      //ls
       case 9:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'ls'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 10:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'ls'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 11:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'ls'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
-
       case 12:
+          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'ls'?\n"ANSI_COLOR_RESET, getenv("USER"));
           return 1;
 
-      //
+      //pwd
       case 13:
           return 1;
 
