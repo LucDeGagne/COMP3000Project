@@ -1,5 +1,17 @@
-// C Program to design a shell in Linux
-// compile with command: gcc geek.c -o geek -lreadline
+/**
+ * COMP3000 Operating Systems w/ Dr. M Barbeau
+ * Final Project: Tutrial-Run Assisted SHell
+ *
+ * Author:   David Nelson  100988794
+ *           Luc DeGané
+ *
+ * Compile:  gcc trash.c -o trash -lreadline
+ *
+ * Revision: 0.01 April 06/18
+ *
+ * Sources: built using
+**/
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -9,16 +21,19 @@
 #include<readline/readline.h>
 #include<readline/history.h>
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define RESET   "\x1b[0m"
 
 #define MAXCOM 1000 // max number of letters to be supported
 #define MAXLIST 100 // max number of commands to be supported
+
+#define SH_NAME		"TRAsh"
+#define SH_VERSION	"0.01"
 
 // Clearing the shell using escape sequences
 #define clear() printf("\033[H\033[J")
@@ -125,8 +140,7 @@ void execArgsPiped(char** parsed, char** parsedpipe)
 // Help command builtin
 void openHelp()
 {
-    puts("\n***WELCOME TO MY SHELL HELP***"
-        "\nCopyright @ Suprotik Dey"
+    puts("\n***WELCOME TO TRA.sh HELP***"
         "\n-Use the shell at your own risk..."
         "\nList of Commands supported:"
         "\n>cd"
@@ -160,31 +174,31 @@ int ownCmdHandler(char** parsed)
     ListOfOwnCmds[9] = "sl";
     ListOfOwnCmds[10] = "l";
     ListOfOwnCmds[11] = "l";
-    //
-    ListOfOwnCmds[12] = "commandMisSpell";
-    ListOfOwnCmds[13] = "commandMisSpell";
-    ListOfOwnCmds[14] = "commandMisSpell";
-    ListOfOwnCmds[15] = "commandMisSpell";
-    //
-    ListOfOwnCmds[16] = "commandMisSpell";
-    ListOfOwnCmds[17] = "commandMisSpell";
-    ListOfOwnCmds[18] = "commandMisSpell";
-    ListOfOwnCmds[19] = "commandMisSpell";
-    //
-    ListOfOwnCmds[20] = "commandMisSpell";
-    ListOfOwnCmds[21] = "commandMisSpell";
-    ListOfOwnCmds[22] = "commandMisSpell";
-    ListOfOwnCmds[23] = "commandMisSpell";
-    //
-    ListOfOwnCmds[24] = "commandMisSpell";
-    ListOfOwnCmds[25] = "commandMisSpell";
-    ListOfOwnCmds[26] = "commandMisSpell";
-    ListOfOwnCmds[27] = "commandMisSpell";
-    //
-    ListOfOwnCmds[28] = "commandMisSpell";
-    ListOfOwnCmds[29] = "commandMisSpell";
-    ListOfOwnCmds[30] = "commandMisSpell";
-    ListOfOwnCmds[31] = "commandMisSpell";
+    //pwd
+    ListOfOwnCmds[12] = "pwdd";
+    ListOfOwnCmds[13] = "ppwd";
+    ListOfOwnCmds[14] = "pd";
+    ListOfOwnCmds[15] = "here";
+    //cd
+    ListOfOwnCmds[16] = "ccd";
+    ListOfOwnCmds[17] = "cdd";
+    ListOfOwnCmds[18] = "c";
+    ListOfOwnCmds[19] = "d";
+    //mkdir
+    ListOfOwnCmds[20] = "mk";
+    ListOfOwnCmds[21] = "mkder";
+    ListOfOwnCmds[22] = "makedir";
+    ListOfOwnCmds[23] = "mkdr";
+    //rm
+    ListOfOwnCmds[24] = "rrm";
+    ListOfOwnCmds[25] = "rmm";
+    ListOfOwnCmds[26] = "r";
+    ListOfOwnCmds[27] = "m";
+    //cp
+    ListOfOwnCmds[28] = "ccp";
+    ListOfOwnCmds[29] = "cpp";
+    ListOfOwnCmds[30] = "c";
+    ListOfOwnCmds[31] = "p";
 
     for (i = 0; i < NoOfOwnCmds; i++) {
         if (strcmp(parsed[0], ListOfOwnCmds[i]) == 0) {
@@ -216,7 +230,7 @@ int ownCmdHandler(char** parsed)
       case 6:
       case 7:
       case 8:
-          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'man'?\n" ANSI_COLOR_RESET, getenv("USER"));
+          printf(YELLOW"%s did you mean to type 'man'?\n" RESET, getenv("USER"));
           return 1;
 
       //ls
@@ -224,72 +238,47 @@ int ownCmdHandler(char** parsed)
       case 10:
       case 11:
       case 12:
-          printf(ANSI_COLOR_YELLOW"%s did you mean to type 'ls'?\n"ANSI_COLOR_RESET, getenv("USER"));
+          printf(YELLOW"%s did you mean to type 'ls'?\n"RESET, getenv("USER"));
           return 1;
 
       //pwd
       case 13:
-          return 1;
-
       case 14:
-          return 1;
-
       case 15:
-          return 1;
-
       case 16:
+          printf(YELLOW"%s did you mean to type 'pwd'?\n"RESET, getenv("USER"));
           return 1;
 
-      //
+      //cd
       case 17:
-          return 1;
-
       case 18:
-          return 1;
-
       case 19:
-          return 1;
-
       case 20:
+          printf(YELLOW"%s did you mean to type 'cd'?\n"RESET, getenv("USER"));
           return 1;
 
-      //
+      //mkdir
       case 21:
-          return 1;
-
       case 22:
-          return 1;
-
       case 23:
-          return 1;
-
       case 24:
+          printf(YELLOW"%s did you mean to type 'mkdir'?\n"RESET, getenv("USER"));
           return 1;
 
-      //
+      //rm
       case 25:
-          return 1;
-
       case 26:
-          return 1;
-
       case 27:
-          return 1;
-
       case 28:
+          printf(YELLOW"%s did you mean to type 'rm'?\n"RESET, getenv("USER"));
           return 1;
 
-      //
+      //cp
       case 29:
-          return 1;
-
       case 30:
-          return 1;
-
       case 31:
-          return 1;
-
       case 32:
+          printf(YELLOW"%s did you mean to type 'cp'?\n"RESET, getenv("USER"));
           return 1;
 
     default:
