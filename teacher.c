@@ -1,3 +1,5 @@
+//https://www.cyberciti.biz/faq/linuxunix-rules-for-naming-file-and-directory-names/
+
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
@@ -9,10 +11,11 @@
 char name[20];
 
 void checkInput(char desired[]){
+    setbuf(stdin, NULL);
     char inputted[100];
     fgets(inputted, 100, stdin);
     srand(time(NULL));
-    int r = rand() % 4;
+    int r;
     while(strcmp(desired,inputted) != 0){
         r = rand() % 4;
         if(r == 0){
@@ -42,14 +45,14 @@ void man(){
     printf("A few commands that may help include the arrow keys to scroll trough the information.\n");
     printf("Tapping the h key will pull up a helper menu for the man page. ");
     printf("When you're ready, press the enter key\n");
-    scanf("%c", &c);
+    c = getchar();
     system("man man");
     printf("\n\n\nAlthough that was a lot of information, as you become a better programmer, it will start to help you sift through pages and pages of information and how to use them.\nThese pages typically have 9 sections that they help:\n\n1. executable programs or shell commands\n2. system calls\n3. library routines\n4. special files (i.e., devices in the /dev directory)\n5. file formats\n6. games\n7. macro packages\n8. system administration commands\n9. kernel routines\n\nBut as beginner programmers, we don't need to know what a kernel routine is.\nWhat we do want to focus on is how to open a man page as well as learning about a flag.\nThis time, type \"man ls\" and see if you can find what the -l character does. Hint: Look under description\n");
     checkInput("man ls\n");
     system("man ls");
     printf("\n\n\n\nThe \"-\" is a flag, %s. We will learn more about that later. This was just a brief taste of what the man pages can do. A little confusing in the hands of a beginner user, but as you get better, the man pages will become clearer and clearer!\n", name);
     printf("Press enter to continue to the next section when ready, %s.\n",name);
-    scanf("%c", &c);
+    c = getchar();
 }
 
 void ls(){
@@ -70,9 +73,134 @@ void ls(){
 void pwd(){
     char c;
     printf("We'll now look at the pwd command, which stands for pathway directory. Much like in a mall kiosk map, pwd represents the \'you are here\' sign.\n");
+    printf("There's no bells and whistles, it just shows you all the directories you have to take to get back to your home page. Try typing in the commabd \"pwd\"\n");
+    checkInput("pwd\n");
+    system("pwd");
+    printf("This location above is synonymous with the \".\" value, which we'll discuss in more detail later.\n");
+    printf("%s, hit enter when you're ready to proceed.\n",name);
+    scanf("%c", &c);
 }
 
-int main() {
+void cd(){
+    char c;
+    system("mkdir tutorial");
+    printf("%s, We're now going to look at a command called cd, which stands for change directory.\n",name);
+    printf("cd is a navigational command for us to enter and exit directories, like clicking on folders to enter and exit them in Mac or Windows. First, we will type pwd, so we know where we are. Once the pathway appears, try typing \"cd tutorial\"\n");
+    checkInput("pwd\n");
+    system("pwd");
+    checkInput("cd tutorial\n");
+    system("cd tutorial");
+    printf("We're now in a new directory, called tutorial, below is the pathway.\n");
+    system("cd tutorial; pwd");
+    printf("In order to get back to our original directory, we have to go back up. The \"../\" represents our parent directory, so we want togo back one directory. in order to advance, we need to return to our current file. Try typing \"cd ../\"\n");
+    checkInput("cd ../\n");
+    printf("Now we're back where we originally started.\n");
+    system("pwd");
+    printf("Once you're ready, hit enter to advance to the next section, %s.\n",name);
+    system("rm -r tutorial");
+    scanf("%c", &c);
+}
+
+void mkdir(){
+    char c;
+    char* result = malloc(strlen("mkdir ")+strlen(name)+1);
+    char* input = malloc(strlen(result)+strlen("\n")+1);
+    strcpy(result,"mkdir ");
+    strcat(result,name);
+    strcpy(input,result);
+    strcat(input,"\n");
+    printf("Our next command to view is the mkdir command. This will allow us to create a new directory and stands for make directory. First, we'll look at all the current files in our current directory:\n");
+    system("ls -l");
+    printf("Now we'll try creating a new directory. Try typing the command \"mkdir test\"\n");
+    checkInput("mkdir test\n");
+    system("mkdir test");
+    printf("Let's see if that worked, here's a new list of the files in our directory:\n");
+    system("ls -l");
+    printf("Notice the newest file? It's out test folder we created! Try creating another folder called %s. Remember, all file names are case sensitive, so Test is a different directory from test\n",name);
+    checkInput(input);
+    system(result);
+    system("ls -l");
+    printf("Look at our newest file! It's you!\n\nSome other naming conventions before we continue include avoiding the use of blank space in a directory (or file) name, a good alternative is the underscore or dash symbol. And all files need to be unique.\nPress the enter key when you're ready to continue.\n");
+    system("rm -r test");
+    char* end = malloc(strlen("rm -r ")+strlen(name)+1);
+    strcpy(end,"rm -r ");
+    strcat(end,name);
+    system(end);
+    scanf("%c", &c);
+}
+
+void rm(){
+    char c;
+    printf("We will now look at the rm command, which stands for remove. This command allows you to delete files and directories alike, it does not send it to any sort of recycling bin so once you've typed rm with a file it's gone. Let's try on a simple practice file. Below is the current file contents:\n");
+    system("touch test");
+    system("mkdir example");
+    system("ls -l");
+    printf("\nTry typing \"rm test\":\n");
+    checkInput("rm test\n");
+    system("rm test");
+    printf("Now here's a list of the file contents, notice how test is gone?\n");
+    system("ls -l");
+    printf("A quick note on this command, typing \"rm *\" removes all the files in the directory except folders. This has to be used carefully because once removed, the files are gone forever. Now how do we remove a directory? Let's try removing it with a flag, try typing \"rm -r example\":\n");
+    checkInput("rm -r example\n");
+    system("rm -r example");
+    printf("Now the file has been removed, check out our current directory contents:\n");
+    system("ls -l");
+    printf("Type enter to continue when you're ready.\n");
+    scanf("%c", &c);
+}
+
+void cp(){
+    char c;
+    printf("The cp command stands for copy. It creates a copy of a file either within the current directory with a different name or in a new directory. Let's try this with an example directory and file. First you type cp then you'll type the file you want to copy's current location and the location you want to copy it to. Try \"cp test temp\".\n");
+    system("touch test");
+    system("mkdir temp");
+    checkInput("cp test temp\n");
+    system("cp test temp");
+    printf("Now when we look in the temp file, a new file has been created called test. This means we were able to copy our test file into a new dircttory, see the contents of the directory below:\n");
+    system("ls -l ./temp/");
+    printf("Let's try copying the file back to our original folder but with a new name. Try using \"cp ./temp/test ./newTest\" the single dot represents the current directory.\n");
+    checkInput("cp ./temp/test ./newTest\n");
+    system("cp ./temp/test ./newTest");
+    printf("\nLet's look at this, now we have in our directory:\n");
+    system("ls -l");
+    system("rm test newTest;rm -r temp");
+    printf("Hit enter to move on.\n");
+    scanf("%c", &c);
+}
+
+void mv(){
+    char c;
+    printf("We're almost done. One of the most important last minute commands is mv which stands for move. As in moving or renaming files. Instead of copy, it acts more as a cut and paste as well as a rename function. Let's try renaming a file from test to myFile. Below are the files we currently have:\n\n");
+    system("touch test;mkdir other;ls -l");
+    printf("\n\nNow try typing mv test myFile");
+    checkInput("mv test myFile\n");
+    system("mv test myFile");
+    printf("Now when we check our current files, test is gone and myFile is there instead!\n");
+    system("ls -l");
+    printf("Let's try moving a file to a new location. Let's take myFile and move it into the directory called other. Try typing the command \"mv myFile other\", the name of your source file goes first and then the second name is the destination location or the new name.\n");
+    checkInput("mv myFile other\n");
+    system("mv myFile other");
+    printf("The new contents of the other directory are shown below.\n");
+    system("ls -l ./other/");
+    printf("\n\nAnd now the contents of our current directory are shown\n");
+    system("ls -l");
+    printf("Our newFile has moved from its original destination to a new one and is gone from our original directory. Press enter when you're ready.\n");
+    system("rm -r other");
+    scanf("%c", &c);
+}
+
+void cat(){
+    char c;
+    printf("Our last command we'll be learning is called the cat command. It simply allows us to view the contents of a file, it has other uses but for now, we'll just stick to this one. Try typing \"cat lastCommand\"\n");
+    system("touch lastCommand;echo \"Congrats! This is the last command!\">>lastCommand");
+    checkInput("cat lastCommand\n");
+    system("cat lastCommand");
+    printf("Hit enter to finish.\n");
+    system("rm lastCommand");
+    scanf("%c", &c);
+}
+
+int menu() {
    int option = 0;
 
    printf( "Please enter your name: ");
@@ -84,20 +212,27 @@ int main() {
        printf("Or type 0 for all\n");
        printf("Type -1 to exit.\n\n");
        printf("0 - full tutorial\n");
-       printf("1 - man\n");
-       printf("2 - ls\n");
-       printf("3 - pwd\n");
-       printf("4 - cd\n");
-       printf("5 - mkdir\n");
-       printf("6 - rm\n");
-       printf("7 - cp\n");
-       printf("8 - mv\n");
+       printf("1 - manuals\n");
+       printf("2 - list\n");
+       printf("3 - pathway directory\n");
+       printf("4 - change directory\n");
+       printf("5 - make directory\n");
+       printf("6 - remove\n");
+       printf("7 - copy\n");
+       printf("8 - move\n");
        printf("9 - cat\n");
        printf("Please enter response: ");
        scanf("%d", &option);
-       
        if(option == 0){
-           return 0;
+           man();
+           ls();
+           pwd();
+           cd();
+           mkdir();
+           rm();
+           cp();
+           mv();
+           cat();
        }
        else if(option == 1){
            man();
@@ -107,6 +242,24 @@ int main() {
        }
        else if(option == 3){
            pwd();
+       }
+       else if(option == 4){
+           cd();
+       }
+       else if(option == 5){
+           mkdir();
+       }
+       else if(option == 6){
+           rm();
+       }
+       else if(option == 7){
+           cp();
+       }
+       else if(option == 8){
+           mv();
+       }
+       else if(option == 9){
+           cat();
        }
        else if(option == -1){
            break;

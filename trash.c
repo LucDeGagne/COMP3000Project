@@ -27,6 +27,7 @@
 #include<sys/wait.h>
 #include<readline/readline.h>
 #include<readline/history.h>
+#include "teacher.h"
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -78,7 +79,10 @@ void execArgs(char** parsed)
         printf("\nFailed forking child..");
         return;
     } else if (pid == 0) {
-        if (execvp(parsed[0], parsed) < 0) {
+        if (strcmp(parsed[0], "tut") == 0){
+            menu();
+        }
+        else if (execvp(parsed[0], parsed) < 0) {
             printf("\nCould not execute command..");
         }
         exit(0);
@@ -148,12 +152,11 @@ void execArgsPiped(char** parsed, char** parsedpipe)
 void openHelp()
 {
     puts("\n***WELCOME TO TRA.sh HELP***"
-        "\n-Use the shell at your own risk..."
+        "\nTYPE tut to start a builtin tutorial on basic shell navigation"
         "\nList of Commands supported:"
         "\n>cd"
         "\n>ls"
         "\n>exit"
-        "\n>all other general commands available in UNIX shell"
         "\n>pipe handling"
         "\n>improper space handling");
 
@@ -208,6 +211,8 @@ int ownCmdHandler(char** parsed)
     ListOfOwnCmds[31] = "p";
     //customs
     ListOfOwnCmds[32] = "trash";
+    //tut
+    ListOfOwnCmds[33] = "tut";
 
     for (i = 0; i < NoOfOwnCmds; i++) {
         if (strcmp(parsed[0], ListOfOwnCmds[i]) == 0) {
